@@ -1,0 +1,1 @@
+web: gunicorn --pythonpath django/coleta coleta.wsgi --log-file -
