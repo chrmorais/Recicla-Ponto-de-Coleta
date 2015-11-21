@@ -8,12 +8,14 @@ public class Ponto implements Parcelable {
     private String nome;
     private double latitude;
     private double longitude;
+    private String endereco;
 
-    public Ponto(int id, double latitude, double longitude, String nome) {
+    public Ponto(int id, double latitude, double longitude, String nome, String endereco) {
         this.id = id;
         this.latitude = latitude;
         this.longitude = longitude;
         this.nome = nome;
+        this.endereco = endereco;
     }
 
     private Ponto(Parcel parcel){
@@ -21,6 +23,7 @@ public class Ponto implements Parcelable {
         nome = parcel.readString();
         latitude = parcel.readDouble();
         longitude = parcel.readDouble();
+        endereco = parcel.readString();
     }
     public double getLatitude() {
         return latitude;
@@ -46,6 +49,22 @@ public class Ponto implements Parcelable {
         this.nome = nome;
     }
 
+    public String getEndereco() {
+        return endereco;
+    }
+
+    public void setEndereco(String endereco) {
+        this.endereco = endereco;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -57,14 +76,7 @@ public class Ponto implements Parcelable {
         parcel.writeString(nome);
         parcel.writeDouble(latitude);
         parcel.writeDouble(longitude);
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
+        parcel.writeString(endereco);
     }
 
     public static final Parcelable.Creator<Ponto> CREATOR = new Parcelable.Creator<Ponto>() {
@@ -78,4 +90,6 @@ public class Ponto implements Parcelable {
             return new Ponto[size];
         }
     };
+
+
 }

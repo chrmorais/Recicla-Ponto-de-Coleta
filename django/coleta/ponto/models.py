@@ -14,6 +14,7 @@ class Ponto(models.Model):
     latitude = models.FloatField('Latitude', help_text='Por favor, utilize a latitude do ponto de coleta')
     longitude = models.FloatField('Longitude', help_text='Por favor, utilize a longitude do ponto de coleta')
     categorias = models.ManyToManyField(Categoria)
+    endereco = models.CharField(max_length=500, help_text='Coloque o endereço para ajudar os usuários a encontrar o local')
 
     def __str__(self):
         return self.nome
@@ -30,4 +31,4 @@ class PontoSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = Ponto
-        fields = ('id', 'nome', 'latitude', 'longitude', 'categorias', )
+        fields = ('id', 'nome', 'latitude', 'longitude', 'categorias', 'endereco', )
