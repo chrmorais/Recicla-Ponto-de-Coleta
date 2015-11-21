@@ -152,7 +152,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:text="Desenvolvido por Aron Barreira Bordin"
-        android:gravity="bottom|center_horizontal"/>
+        android:gravity="bottom|center_horizontal"
+        android:paddingBottom="3dp"/>
 
     <ImageButton
         android:layout_width="wrap_content"

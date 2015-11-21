@@ -32,12 +32,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private ArrayList<Ponto> pontos;
     private Location location;
     private Map<Marker, Ponto> makersMap = new HashMap<>();
+    private SupportMapFragment mapFragment;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
+        mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
@@ -50,6 +51,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap = googleMap;
         mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
         mMap.setMyLocationEnabled(true);
+        mMap.getUiSettings().setAllGesturesEnabled(false);
+
         mMap.setInfoWindowAdapter(new GoogleMap.InfoWindowAdapter() {
 
             @Override
@@ -108,7 +111,17 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
                 @Override
                 public void onMapLoaded() {
-                    mMap.animateCamera(CameraUpdateFactory.newLatLngBounds(bounds, 50));
+                    mMap.animateCamera(CameraUpdateFactory.newLatLngBounds(bounds, 50), 500, new GoogleMap.CancelableCallback() {
+                        @Override
+                        public void onFinish() {
+                            mMap.getUiSettings().setAllGesturesEnabled(true);
+                        }
+
+                        @Override
+                        public void onCancel() {
+
+                        }
+                    });
                 }
             });
         }

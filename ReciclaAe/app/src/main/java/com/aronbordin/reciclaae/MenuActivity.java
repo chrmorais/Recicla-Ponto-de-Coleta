@@ -38,7 +38,7 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
     private static final int CAT_METAL = 4;
     private static final int CAT_PAPEL = 5;
     private static final int CAT_VIDRO = 6;
-    private static final String GET_MAKERS = "http://192.168.0.20:8000/api/pontos/?format=json&categorias=";
+    private static final String GET_MAKERS = "http://recicla-aronbordin.rhcloud.com/api/pontos/?format=json&categorias=";
     private static Location location;
     private boolean isGPSEnabled = false;
     private boolean isNetEnabled = false;
@@ -129,6 +129,8 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.imgHelp:
                 help();
                 break;
+            case R.id.btnTodos:
+                getCategoria(-1, (ActionProcessButton) view);
         }
 
     }
@@ -150,8 +152,17 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
     private void getCategoria(int cat, final ActionProcessButton btn) {
         btn.setProgress(1);
 
+        String url;
+        if(cat == -1){
+            url = GET_MAKERS + "1";
+            for(int i = 2; i <= 6; i++){
+                url += "&categorias=" + i;
+            }
+        } else {
+            url = GET_MAKERS + cat;
+        }
         Ion.with(getApplicationContext())
-                .load(GET_MAKERS + cat)
+                .load(url)
                 .asJsonObject()
                 .setCallback(new FutureCallback<JsonObject>() {
                     @TargetApi(Build.VERSION_CODES.M)
