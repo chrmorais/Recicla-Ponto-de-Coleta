@@ -1,4 +1,4 @@
 .idea/
 db.sqlite3
 ponto/migrations
-static/
+coleta/staticfiles
