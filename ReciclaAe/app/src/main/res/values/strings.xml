@@ -1,4 +1,10 @@
 <resources>
     <string name="app_name">Recicla Ae!</string>
     <string name="action_settings">Settings</string>
+    <string name="title_activity_maps">Map</string>
+    <string name="about">Este projeto tem como objetivo te ajudar a encontrar pontos de coletas em sua cidade.\n\nEste aplicativo e o site são de código aberto, sob licença MIT.\n\nO código pode ser encontrado em https://github.com/aron-bordin/Recicla-Ponto-de-Coleta</string>
+    <string name="me">Projeto desenvolvido por Aron Barreira Bordin
+        \n\naron.bordin@gmail.com
+        \nhttp://aronbordin.com
+        \nhttp://blog.rhesoft.com</string>
 </resources>

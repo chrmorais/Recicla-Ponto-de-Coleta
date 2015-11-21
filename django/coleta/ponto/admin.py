@@ -4,10 +4,13 @@ from .models import Ponto
 
 
 class CategoriaAdmin(admin.ModelAdmin):
-    pass
+    
+    list_display = ('id', 'nome', )
 
 
 class PontoAdmin(admin.ModelAdmin):
+
+    list_display = ('id', 'nome', 'latitude', 'longitude', )
 
     def render_change_form(self, request, context, *args, **kwargs):
         self.change_form_template = 'change_ponto.html'
