@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="item_oleo">#81C14B</color>
+    <color name="item_pilha">#FF784F</color>
+    <color name="item_plastico">#C32F27</color>
+    <color name="item_metal">#FFB627</color>
+    <color name="item_papel">#0a369d</color>
+    <color name="item_vidro">#2D7100</color>
+    <color name="item_todos">#000</color>
+</resources>
