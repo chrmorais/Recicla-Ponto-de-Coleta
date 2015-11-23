@@ -1,4 +1,4 @@
-package com.aronbordin.reciclaae;
+package com.aronbordin.reciclae;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;

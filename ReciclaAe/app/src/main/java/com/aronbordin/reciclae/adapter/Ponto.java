@@ -1,4 +1,4 @@
-package com.aronbordin.reciclaae.adapter;
+package com.aronbordin.reciclae.adapter;
 
 import android.os.Parcel;
 import android.os.Parcelable;

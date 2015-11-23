@@ -1,9 +1,8 @@
-package com.aronbordin.reciclaae;
+package com.aronbordin.reciclae;
 
 import android.Manifest;
 import android.annotation.TargetApi;
 import android.app.AlertDialog;
-import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -14,11 +13,10 @@ import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.view.Menu;
 import android.view.View;
 import android.widget.Toast;
 
-import com.aronbordin.reciclaae.adapter.Ponto;
+import com.aronbordin.reciclae.adapter.Ponto;
 import com.dd.processbutton.iml.ActionProcessButton;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
@@ -29,7 +27,6 @@ import com.koushikdutta.ion.Ion;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
-import java.util.List;
 
 public class MenuActivity extends AppCompatActivity implements View.OnClickListener, LocationListener {
     private static final int CAT_OLEO = 1;
@@ -38,11 +35,12 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
     private static final int CAT_METAL = 4;
     private static final int CAT_PAPEL = 5;
     private static final int CAT_VIDRO = 6;
-    private static final String GET_MAKERS = "http://recicla-aronbordin.rhcloud.com/api/pontos/?format=json&categorias=";
+    private static final String GET_MAKERS = "http://reciclaae.aronbordin.com/api/pontos/?format=json&categorias=";
     private static Location location;
     private boolean isGPSEnabled = false;
     private boolean isNetEnabled = false;
     private LocationManager locationManager;
+    private static boolean isLoading = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -150,6 +148,9 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void getCategoria(int cat, final ActionProcessButton btn) {
+        if(isLoading)
+            return;
+        isLoading = true;
         btn.setProgress(1);
 
         String url;
@@ -168,6 +169,7 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
                     @TargetApi(Build.VERSION_CODES.M)
                     @Override
                     public void onCompleted(Exception e, JsonObject result) {
+                        isLoading = false;
                         btn.setProgress(0);
                         if (e != null) {
                             Toast.makeText(getApplicationContext(), "Falha ao buscar pontos de coleta!", Toast.LENGTH_LONG).show();
