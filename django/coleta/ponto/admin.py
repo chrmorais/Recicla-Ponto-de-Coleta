@@ -10,7 +10,7 @@ class CategoriaAdmin(admin.ModelAdmin):
 
 class PontoAdmin(admin.ModelAdmin):
 
-    list_display = ('id', 'nome', 'latitude', 'longitude', )
+    list_display = ('id', 'nome', 'latitude', 'longitude', 'telefone', )
 
     def render_change_form(self, request, context, *args, **kwargs):
         self.change_form_template = 'change_ponto.html'
