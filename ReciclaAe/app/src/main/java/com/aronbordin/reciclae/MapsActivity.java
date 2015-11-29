@@ -90,7 +90,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         for(Ponto p: pontos){
             LatLng maker = new LatLng(p.getLatitude(), p.getLongitude());
-            Marker m = mMap.addMarker(new MarkerOptions().position(maker).title(p.getNome()).snippet(p.getEndereco()));
+            StringBuilder sb = new StringBuilder();
+            sb.append(p.getEndereco() + "\n");
+            sb.append(p.getTelefone() + "\n");
+            sb.append(p.getEmail());
+            Marker m = mMap.addMarker(new MarkerOptions().position(maker).title(p.getNome()).snippet(sb.toString()));
             boundsBuilder.include(maker);
             makersMap.put(m, p);
 

@@ -155,10 +155,7 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
 
         String url;
         if(cat == -1){
-            url = GET_MAKERS + "1";
-            for(int i = 2; i <= 6; i++){
-                url += "&categorias=" + i;
-            }
+            url = GET_MAKERS.replace("&categorias=", "");
         } else {
             url = GET_MAKERS + cat;
         }
