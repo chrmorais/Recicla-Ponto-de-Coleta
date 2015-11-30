@@ -3,9 +3,11 @@ package com.aronbordin.reciclae;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.location.Location;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.view.Gravity;
+import android.view.Menu;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -41,7 +43,18 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mapFragment.getMapAsync(this);
 
         pontos = getIntent().getParcelableArrayListExtra("PONTOS");
-        location = getIntent().getParcelableExtra("LOCATION");
+        location = MenuActivity.location;
+
+        if(!MenuActivity.isGPSEnabled) {
+
+            View view = findViewById(R.id.map_root);
+            Snackbar sn = Snackbar.make(view, R.string.gps_desativado, Snackbar.LENGTH_LONG);
+            View sbView = sn.getView();
+            TextView textView = (TextView) sbView.findViewById(android.support.design.R.id.snackbar_text);
+            textView.setTextColor(Color.WHITE);
+
+            sn.show();
+        }
     }
 
     @Override

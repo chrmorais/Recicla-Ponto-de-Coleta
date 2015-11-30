@@ -36,9 +36,9 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
     private static final int CAT_PAPEL = 5;
     private static final int CAT_VIDRO = 6;
     private static final String GET_MAKERS = "http://reciclaae.aronbordin.com/api/pontos/?format=json&categorias=";
-    private static Location location;
-    private boolean isGPSEnabled = false;
-    private boolean isNetEnabled = false;
+    public static Location location;
+    public static boolean isGPSEnabled = false;
+    public static boolean isNetEnabled = false;
     private LocationManager locationManager;
     private static boolean isLoading = false;
 
@@ -86,13 +86,11 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
         if (!isNetEnabled && !isGPSEnabled) {
             noTracking();
         } else {
-            if (isGPSEnabled) {
-                locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
-                location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-            } else {
-                locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, this);
+            location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+            locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, this);
+            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
+            if(location == null)
                 location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
-            }
         }
     }
 
@@ -199,6 +197,7 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onLocationChanged(Location new_location) {
+        System.out.println(new_location);
         if(location != null){
             if(location.getAccuracy() > new_location.getAccuracy()){
                 location = new_location;
