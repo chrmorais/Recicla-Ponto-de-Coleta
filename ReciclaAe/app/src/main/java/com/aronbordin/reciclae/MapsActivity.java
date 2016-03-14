@@ -1,9 +1,12 @@
 package com.aronbordin.reciclae;
 
+import android.Manifest;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.location.Location;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.view.Gravity;
@@ -33,6 +36,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private Location location;
     private Map<Marker, Ponto> makersMap = new HashMap<>();
     private SupportMapFragment mapFragment;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,7 +49,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         pontos = getIntent().getParcelableArrayListExtra("PONTOS");
         location = MenuActivity.location;
 
-        if(!MenuActivity.isGPSEnabled) {
+        if (!MenuActivity.isGPSEnabled) {
 
             View view = findViewById(R.id.map_root);
             Snackbar sn = Snackbar.make(view, R.string.gps_desativado, Snackbar.LENGTH_LONG);
@@ -61,7 +65,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
         mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
-        mMap.setMyLocationEnabled(true);
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            mMap.setMyLocationEnabled(true);
+            return;
+        }
         mMap.getUiSettings().setAllGesturesEnabled(false);
 
         mMap.setInfoWindowAdapter(new GoogleMap.InfoWindowAdapter() {
